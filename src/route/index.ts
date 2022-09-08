@@ -1,6 +1,7 @@
 /* eslint-disable import-helpers/order-imports */
 import { Router } from 'express';
 import { localidadeRoutes } from './Localidade.routes';
+import { elasticsearchRoutes } from './elasticsearch.routes';
 
 const appRoutes = Router();
 
@@ -17,5 +18,6 @@ appRoutes.get('/', (request, response) => {
 });
 
 appRoutes.use('/localidade', localidadeRoutes);
+appRoutes.use('/elasticsearch', elasticsearchRoutes)
 
 export { appRoutes };
