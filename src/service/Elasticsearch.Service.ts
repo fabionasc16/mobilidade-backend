@@ -20,23 +20,17 @@ export class ElasticsearchService {
 
     async search() {
 
-      const { Client } = require('@elastic/elasticsearch')
-      const client = new Client({
-        cloud: { id: '<cloud-id>' },
-        auth: { apiKey: 'base64EncodedKey' }
-      })
-      const result = await client.search({
+      const {body: response } = await this.clientElasticsearch.search({
         index: '',
         query: {
           match: {
             quote: ''
           }
         }
-      })
+      });
 
-  console.log(result.hits.hits)
+  console.log(response.hits.hits)
 }
 
-run().catch(console.log)
         //return this.clientElasticsearch.search();    
 }
