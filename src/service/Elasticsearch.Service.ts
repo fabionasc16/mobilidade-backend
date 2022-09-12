@@ -1,11 +1,12 @@
 import elasticsearch from '@elastic/elasticsearch';
+import { Request, Response } from 'express';
 
 export class ElasticsearchService {
 
-    private clientElasticsearch: any;
+    private static clientElasticsearch: any;
 
     constructor() {
-        this.clientElasticsearch = new elasticsearch.Client({
+      ElasticsearchService.clientElasticsearch = new elasticsearch.Client({
             node: 'https://vps35731.publiccloud.com.br:9200',
             auth: {
               username: 'elastic',
@@ -15,21 +16,24 @@ export class ElasticsearchService {
               rejectUnauthorized: false
             }
         });;
-        console.log(this.clientElasticsearch)
-    }
+        console.log("constructor")
+    } 
 
-    async search() {
-
-      const {body: response } = await this.clientElasticsearch.search({
-        index: '',
+    public search(request: Request, response: Response) {
+      console.log(ElasticsearchService.clientElasticsearch)
+      const data = ElasticsearchService.clientElasticsearch.search({
+        index: 'waze_accidents',
+        _source:['location'],
         query: {
-          match: {
-            quote: ''
+          match_all: {
+            
           }
         }
-      });
+      }).then(( result:any )=>{return response.status(200).json(result.hits.hits)});
 
-  console.log(response.hits.hits)
+  console.log(data)
+  //return response.status(200).json(data.hits);
+  return data;
 }
 
         //return this.clientElasticsearch.search();    
