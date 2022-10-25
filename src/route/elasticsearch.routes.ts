@@ -6,5 +6,6 @@ const elasticsearchRoutes = Router();
 
 const elasticsearchService = new ElasticsearchService();
 console.log(elasticsearchService.search);
-elasticsearchRoutes.get('/acidentes', elasticsearchService.search);
+elasticsearchRoutes.get('/accidents', elasticsearchService.search);
+elasticsearchRoutes.get('/districts', elasticsearchService.aggregateDistricts);
 export { elasticsearchRoutes };

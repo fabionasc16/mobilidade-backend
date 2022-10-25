@@ -9,9 +9,9 @@
   },
   "license": "MIT",
   "scripts": {
-    "run:dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
-    "run:prod": "tsc && cd dist && node server.js",
-    "run:tsc": "tsc",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+    "prod": "tsc && cd dist && node server.js",
+    "tsc": "tsc",
     "run:lint": "eslint . --ext .ts,.js,.json",
     "run:lint-fix": "eslint . --ext .ts,.js,.json --fix"
   },
