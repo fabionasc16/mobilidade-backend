@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { AppError } from 'AppError';
-import connection from 'config';
+
 import cors from 'cors';
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
@@ -9,8 +9,6 @@ import morgan from 'morgan';
 import { appRoutes } from 'route';
 
 import 'singleton';
-
-connection();
 
 const app = express();
 app.use(
