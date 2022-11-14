@@ -7,5 +7,7 @@ const elasticsearchRoutes = Router();
 const elasticsearchService = new ElasticsearchService();
 console.log(elasticsearchService.search);
 elasticsearchRoutes.get('/accidents', elasticsearchService.search);
-elasticsearchRoutes.get('/districts', elasticsearchService.aggregateDistricts);
+elasticsearchRoutes.get('/accidents/districts', elasticsearchService.aggregateDistricts);
+elasticsearchRoutes.get('/accidents/months', elasticsearchService.aggregateAccidentsByMonth);
+elasticsearchRoutes.get('/accidents/refresh', elasticsearchService.aggregateMaxDate);
 export { elasticsearchRoutes };

@@ -51,9 +51,9 @@ export class ElasticsearchService {
     });
   }
   public aggregateDistricts(request: Request, response: Response) {
-    let city:string = ''
+    let city = ''
     if(request.query.city){
-        city = request.query.city;
+        city = request.query.city.toString();
     }
   
     const data = ElasticsearchService.clientElasticsearch.search({
@@ -97,6 +97,109 @@ export class ElasticsearchService {
       return response.status(200).json(accidents);
     });
   }
+  public aggregateAccidentsByMonth(request: Request, response: Response) {
+    let city = ''
+    if(request.query.city){
+        city = request.query.city.toString();
+    }
+  
+    const data = ElasticsearchService.clientElasticsearch.search({
+      index: 'waze_accidents',
+      size: 100,
+      //_source: ['location'],      
+      query: {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "type": "ACCIDENT"
+              }
+            }, {
+              "match": {
+                "city": `${city}`
+              }
+            }
+          ]
+        }
+      },
+      "aggs": {
+        "mes": {
+          "date_histogram": {
+            "field": "data_coleta",
+            "calendar_interval":"month",
+            "format": "MM/yyyy" 
+          }
+        }
+      }
 
+    });
 
+    return data.then((result: any) => {
+     
+      if(  result.aggregations){       
+        const accidents = {};
+        result.aggregations.mes.buckets.forEach(element => {
+          if (element) {
+            const mes = element.key_as_string;
+            accidents[mes] = element.doc_count;
+          }
+  
+        });
+        return response.status(200).json( accidents);
+      }else{
+        return response.status(200).json( result.hits.hits);
+      }
+      
+    });
+  }
+
+  public  aggregateMaxDate(request: Request, response: Response) {   
+      let city = ''
+      if(request.query.city){
+          city = request.query.city.toString();
+      }
+    
+      const data = ElasticsearchService.clientElasticsearch.search({
+        index: 'waze_accidents',
+      
+        //_source: ['location'],      
+        query: {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "type": "ACCIDENT"
+                }
+              }, {
+                "match": {
+                  "city": `${city}`
+                }
+              }
+            ]
+          }
+        },
+        "aggs": {         
+          "atualizacao": {
+            "max": {
+              "field": "data_coleta",
+              "format": "dd/MM/yyyy HH:mm:ss"              
+            }
+           
+          }
+        }
+  
+      });
+  
+      return data.then((result: any) => {
+       
+        if(  result.aggregations &&  result.aggregations.atualizacao){ 
+                            
+          return response.status(200).json(  result.aggregations.atualizacao);
+        }else{
+          return response.status(200).json( result.hits.hits);
+        }
+        
+      });
+    }
+  
 }
