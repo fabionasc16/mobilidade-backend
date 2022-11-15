@@ -7,3 +7,5 @@ deploy:      # This job runs in the deploy stage.
     - docker-compose up -d --force-recreate
   only:
     - main
+  tags:
+   - locaweb_1
