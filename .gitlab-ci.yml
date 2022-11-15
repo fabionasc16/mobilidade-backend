@@ -1,0 +1,11 @@
+stages:          # List of stages for jobs, and their order of execution
+  - deploy
+
+deploy:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  script:    
+    - docker-compose up -d --force-recreate
+  only:
+    - main
+  tags:
+    - locaweb_1
