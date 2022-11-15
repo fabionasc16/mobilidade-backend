@@ -154,11 +154,7 @@ export class ElasticsearchService {
   }
 
   public  aggregateMaxDate(request: Request, response: Response) {   
-      let city = ''
-      if(request.query.city){
-          city = request.query.city.toString();
-      }
-    
+        
       const data = ElasticsearchService.clientElasticsearch.search({
         index: 'waze_accidents',
       
@@ -169,10 +165,6 @@ export class ElasticsearchService {
               {
                 "match": {
                   "type": "ACCIDENT"
-                }
-              }, {
-                "match": {
-                  "city": `${city}`
                 }
               }
             ]
