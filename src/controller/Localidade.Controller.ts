@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable prefer-const */
 import { Request, Response } from 'express';
-import { LocalidadeService } from 'service/Localidade.Service';
+import { LocalidadeService } from '../service/Localidade.Service';
 
 
 

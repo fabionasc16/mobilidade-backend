@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import getclient from 'client/elasticsearch';
-import { ElasticsearchService } from 'service/Elasticsearch.Service';
+
+import { ElasticsearchService } from '../service/Elasticsearch.Service';
 
 const elasticsearchRoutes = Router();
 

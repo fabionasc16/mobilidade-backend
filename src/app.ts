@@ -1,14 +1,14 @@
 import 'reflect-metadata';
-import { AppError } from 'AppError';
+import { AppError } from './AppError';
 
 import cors from 'cors';
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
-import { Messages } from 'messages/Messages';
+import { Messages } from './messages/Messages';
 import morgan from 'morgan';
-import { appRoutes } from 'route';
+import { appRoutes } from './route';
 
-import 'singleton';
+//import 'singleton';
 
 const app = express();
 app.use(

@@ -4,10 +4,8 @@
 /* eslint-disable prefer-const */
 /* eslint-disable prettier/prettier */
 /* eslint-disable radix */
-import { Messages } from 'messages/Messages';
-import { AppError } from 'AppError';
 // eslint-disable-next-line prettier/prettier
-import { LocalidadeManaus } from 'model/Localidade.model';
+import { LocalidadeManaus } from '../model/Localidade.model';
 import moment from 'moment';
 import mongoose from 'mongoose';
 import { ILocalidadeManausRepository } from 'repository/ILocalidadeManausRepository';

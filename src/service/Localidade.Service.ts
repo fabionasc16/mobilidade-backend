@@ -3,10 +3,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable prettier/prettier */
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { ParsedQs } from "qs";
-import { LocalidadeManausRepository } from "repository/LocalidadeManausRepository";
-import { AppError } from 'AppError';
-import { Messages } from "messages/Messages";
+import { LocalidadeManausRepository } from "../repository/LocalidadeManausRepository";
+
 
 export class LocalidadeService {
     update(id: string, body: any) {

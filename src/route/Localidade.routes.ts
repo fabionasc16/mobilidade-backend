@@ -1,4 +1,4 @@
-import { LocalidadeController } from 'controller/Localidade.Controller';
+import { LocalidadeController } from '../controller/Localidade.Controller';
 import { Router } from 'express';
 
 const localidadeRoutes = Router();
