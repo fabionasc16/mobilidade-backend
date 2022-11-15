@@ -6,24 +6,15 @@ services:
     container_name: mobilidade-backend
     restart: always
     working_dir: /app
-    command: bash -c 'npm install && npm run run:dev'
+    command: bash -c 'npm install && npm run prod && node dist/server.js'
     volumes:
-      #- ./:/app
-      - ./src:/app/src
-      - ./package.json:/app/package.json
-      - ./tsconfig.json:/app/tsconfig.json
-      - /opt/mobilidade-backend/images:/app/images
+      - ./:/app
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - PORT=3300
-      - MONGO_DBNAME=mobilidade_banco
-      - MONGO_USER=root
-      - MONGO_PASS=e[&W*UcGSVBruETSTW
-      - MONGO_URL=mongodb://10.200.7.27:27018
+      - ELASTIC_USER=elastic
+      - ELASTIC_PASSWORD=5PfKm0POuZ5h
+      - ELASTIC_HOST=https://vps35731.publiccloud.com.br:9200
     ports:
-      - "3301:3300"    
-    depends_on:
-      - mobilidade-mongodb
-volumes:
-  mongo_data:
+      - "3000:3300"
 
