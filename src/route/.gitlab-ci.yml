@@ -8,4 +8,4 @@ deploy:      # This job runs in the deploy stage.
   only:
     - main
   tags:
-   - locaweb_1
+    - locaweb_1
