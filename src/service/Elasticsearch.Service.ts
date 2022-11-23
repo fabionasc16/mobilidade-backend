@@ -55,8 +55,7 @@ export class ElasticsearchService {
 
     const data = ElasticsearchService.clientElasticsearch.search({
       index: 'waze_accidents',
-      size: 10000,
-      _source: ['location'],
+      size: 10000,      
       query: {
         "bool": {
           "must": [
@@ -74,7 +73,7 @@ export class ElasticsearchService {
     return data.then((result: any) => {
       const accidents = [];
       result.hits.hits.forEach(element => {
-        if (element._source && element._source.location) {
+        if (element._source) {
           accidents.push(element._source);
         }
 
