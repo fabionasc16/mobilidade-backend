@@ -50,6 +50,38 @@ export class ElasticsearchService {
       return response.status(200).json(accidents);
     });
   }
+
+    public exportAccidents(request: Request, response: Response) {
+
+    const data = ElasticsearchService.clientElasticsearch.search({
+      index: 'waze_accidents',
+      size: 10000,
+      _source: ['location'],
+      query: {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "type": "ACCIDENT"
+              }
+            }
+          ]
+        }
+      }
+
+    });
+
+    return data.then((result: any) => {
+      const accidents = [];
+      result.hits.hits.forEach(element => {
+        if (element._source && element._source.location) {
+          accidents.push(element._source);
+        }
+
+      });
+      return response.status(200).json(accidents);
+    });
+  }
   public aggregateDistricts(request: Request, response: Response) {
     let city = ''
     if(request.query.city){
